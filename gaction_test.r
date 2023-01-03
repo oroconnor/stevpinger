@@ -9,7 +9,7 @@ library(jsonlite)
 ## QuantAQ API:
 
 api_key = 'C2TSVOC7S40ONPN6ZTXMLP0L'
-serial_number = 'MOD-PM-00044' # Specific to this monitoring device
+serial_number = 'MOD-PM-00042' # Specific to this monitoring device
 
 base_url = "https://api.quant-aq.com/device-api/v1"
 accounts_endpoint = '/account'
@@ -116,7 +116,7 @@ get_raw_data = function(serial_number, data_points=NULL, start_date=NULL, end_da
 ##### -----  Below is the action data pull and munging
 
 
-wk <- read_csv("https://raw.githubusercontent.com/oroconnor/airpinger/main/data/datetime_lister.csv", col_types = "cddc") 
+wk <- read_csv("https://raw.githubusercontent.com/oroconnor/stevpinger/main/data/full_stevenson.csv", col_types = "cddc") 
 
 
 wk <- wk %>%
@@ -161,8 +161,7 @@ recent_data_h <- recent_data %>%
     PM10 = mean(PM10,na.rm = TRUE)
   ) %>%
   mutate(
-    YMD = ymd_hms(YMD),
-    sensor = "quantaq"
+    YMD = ymd_hms(YMD)
   )
 
 
@@ -178,4 +177,4 @@ recent_data_h <- recent_data %>%
 #print(row)
 
 # append at the end of the csv the new data
-write_csv(recent_data_h,paste0('data/datetime_lister.csv'),append = T)   
+write_csv(recent_data_h,paste0('data/full_stevenson.csv'),append = T)   
